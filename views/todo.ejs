@@ -1,111 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Todo List APP test</title>
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                background-color: #f4f4f4;
-                color: #333;
-                margin: 0;
-                padding: 0;
+<head>
+    <meta charset="UTF-8" />
+    <title>Todo List App</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #e9ecef;
+            color: #212529;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            background: linear-gradient(to right, #4CAF50, #2e7d32);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            margin: 0;
+            font-size: 1.8rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        ul li {
+            background: #fff;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            margin-bottom: 12px;
+            padding: 15px 20px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        ul li:hover {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .todo-text {
+            font-size: 1.1rem;
+        }
+
+        .delete-btn, .edit-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1rem;
+            text-decoration: none;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        .delete-btn {
+            right: 10px;
+            color: white;
+            background-color: #dc3545;
+        }
+
+        .edit-btn {
+            right: 50px;
+            color: white;
+            background-color: #ffc107;
+        }
+
+        .delete-btn:hover {
+            background-color: #c82333;
+        }
+
+        .edit-btn:hover {
+            background-color: #e0a800;
+        }
+
+        form {
+            background: #fff;
+            padding: 20px;
+            margin-top: 30px;
+            border-radius: 8px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        @media (max-width: 600px) {
+            .edit-btn, .delete-btn {
+                font-size: 0.9rem;
+                padding: 3px 6px;
             }
 
             h1 {
-                background-color: #4CAF50;
-                color: white;
-                margin: 0;
-                padding: 20px;
-                text-align: center;
+                font-size: 1.4rem;
+                padding: 20px 10px;
             }
-
-            ul {
-                list-style: none;
-                padding: 0;
-            }
-
-            ul li {
-                background: #fff;
-                border: 1px solid #ddd;
-                margin-bottom: 10px;
-                padding: 10px;
-                position: relative;
-            }
-
-            ul li a {
-                color: #333;
-                text-decoration: none;
-                font-weight: bold;
-            }
-
-            ul li a:hover {
-                color: #4CAF50;
-            }
-
-            .delete-btn {
-                color: red;
-                position: absolute;
-                right: 10px;
-                top: 10px;
-            }
-
-            .edit-btn {
-                color: #FFC107;
-                position: absolute;
-                right: 40px;
-                top: 10px;
-            }
-
-            form {
-                background: #fff;
-                padding: 20px;
-                margin-top: 20px;
-            }
-
-            label {
-                display: block;
-                margin-bottom: 10px;
-            }
-
-            input[type="text"] {
-                width: 100%;
-                padding: 10px;
-                margin-bottom: 10px;
-                border: 1px solid #ddd;
-            }
-
-            input[type="submit"] {
-                background-color: #4CAF50;
-                color: white;
-                border: none;
-                padding: 10px 20px;
-                cursor: pointer;
-            }
-
-            input[type="submit"]:hover {
-                background-color: #45a049;
-            }
-        </style>
-    </head>
-
-    <body>
-        <h1>Hello Junoon Batch 8 (Jenkins), Write your plan on Learning Jenkins</h1>
+        }
+    </style>
+</head>
+<body>
+    <h1>Hello Junoon Batch 8 (Jenkins) 👋<br>Write your plan on Learning Jenkins</h1>
+    <div class="container">
         <ul>
             <% todolist.forEach(function(todo, index) { %>
-            <li>
-                <a href="/todo/delete/<%= index %>" class="delete-btn">✘</a>
-                <a href="/todo/<%= index %>" class="edit-btn">✎</a>
-                <%- todo %>
-            </li>
+                <li>
+                    <span class="todo-text"><%- todo %></span>
+                    <a href="/todo/delete/<%= index %>" class="delete-btn">✘</a>
+                    <a href="/todo/<%= index %>" class="edit-btn">✎</a>
+                </li>
             <% }); %>
         </ul>
 
         <form action="/todo/add/" method="post">
-            <p>
-                <label for="add items "</label>
-                <input type="text" name="newtodo" id="newtodo" autofocus />
-                <input type="submit" value="Add" />
-            </p>
+            <label for="newtodo">Add a new plan</label>
+            <input type="text" name="newtodo" id="newtodo" placeholder="e.g., Learn Jenkins Pipelines" autofocus />
+            <input type="submit" value="Add Plan" />
         </form>
-    </body>
+    </div>
+</body>
 </html>
